@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import ButtonBackground from './ButtonBackground';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Name: Gabby Gonzalez</Text>
       <StatusBar style="auto" />
+      <TextInput placeholder="Add new contact" />
       <ButtonBackground text="Add Contact +" />
     </View>
   );
