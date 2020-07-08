@@ -7,6 +7,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style = {styles.title}>Name: Gabby Gonzalez</Text>
+      <Text>William Bogans 🌴</Text>
       <StatusBar style="auto" />
       <ButtonBackground text = 'Add Contact +' />
       <br/>
