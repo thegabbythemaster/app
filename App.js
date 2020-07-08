@@ -1,16 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Platform, Alert, ImagePropTypes} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import ButtonBackground from './ButtonBackground';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style = {styles.title}>Name: Gabby Gonzalez</Text>
+      <Text style={styles.title}>Name: Gabby Gonzalez</Text>
       <StatusBar style="auto" />
-      <ButtonBackground text = 'Add Contact +' />
-      <br/>
-      <input type = "text" name = "contact" />
+      <ButtonBackground text="Add Contact +" />
     </View>
   );
 }
@@ -22,9 +20,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title:{
+  title: {
     fontSize: 32,
     textAlign: 'center',
     margin: 10,
-  }
+  },
 });
