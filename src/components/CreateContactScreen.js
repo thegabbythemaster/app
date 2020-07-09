@@ -1,20 +1,75 @@
 import React from 'react';
-import { TouchableOpacity, SafeAreaView, Text, StyleSheet } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 
 export const CreateContactScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>Create New Contact Screen</Text>
+    <SafeAreaView
+      style={{
+        display: 'flex',
+        flex: 1,
+      }}
+    >
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: 30,
+          marginTop: 20,
+        }}
+      >
+        Create new contact
+      </Text>
+      {/* TODO: create components out of these fields */}
+      <View>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 30,
+          }}
+        >
+          <Text style={{ flex: 0.5, fontSize: 22 }}>Name: </Text>
+          <TextInput
+            placeholder="name"
+            style={{
+              flex: 2,
+              padding: 10,
+              borderColor: 'black',
+              borderStyle: 'solid',
+              borderWidth: 1,
+            }}
+          />
+        </View>
+
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 30,
+          }}
+        >
+          <Text style={{ fontSize: 22 }}>Phone number: </Text>
+          <TextInput
+            placeholder="name"
+            style={{
+              flex: 2,
+              padding: 10,
+              borderColor: 'black',
+              borderStyle: 'solid',
+              borderWidth: 1,
+            }}
+          />
+        </View>
+        <TouchableOpacity>
+          <Text></Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default CreateContactScreen;
