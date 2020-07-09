@@ -8,6 +8,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
+// TODO: Add a splash screen
 export default function App() {
   return (
     <NavigationContainer>
