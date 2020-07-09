@@ -13,16 +13,11 @@ const HomeScreen = () => {
         <SafeAreaView
           style={{
             flex: 1,
-            backgroundColor: 'red',
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
-          <Text>Hey</Text>
-          {/* TODO: Make this a button */}
-          <TouchableOpacity>
-            <Text>Add Contact</Text>
-          </TouchableOpacity>
+          <Text>Home Screen</Text>
         </SafeAreaView>
       );
     } else {
