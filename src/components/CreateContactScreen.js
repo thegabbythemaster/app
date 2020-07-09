@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import * as Notifications from 'expo-notifications';
 import { SafeAreaView, Text, View } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
@@ -15,6 +16,7 @@ Notifications.setNotificationHandler({
 
 export const CreateContactScreen = () => {
   const [expoPushToken, setExpoPushToken] = useState('');
+  const { control, handleSubmit } = useForm();
   const [notification, setNotification] = useState(false);
 
   // TODO: clean up with a hook + async/await
@@ -33,6 +35,10 @@ export const CreateContactScreen = () => {
       Notifications.removeAllNotificationListeners();
     };
   }, []);
+
+  async function onSubmit(data) {
+    await sendPushNotification(expoPushToken, data);
+  }
 
   return (
     <SafeAreaView
@@ -67,15 +73,25 @@ export const CreateContactScreen = () => {
           }}
         >
           <Text style={{ flex: 0.5, fontSize: 22 }}>Name: </Text>
-          <TextInput
-            placeholder="name"
-            style={{
-              flex: 2,
-              padding: 10,
-              borderColor: 'black',
-              borderStyle: 'solid',
-              borderWidth: 1,
-            }}
+          <Controller
+            control={control}
+            render={({ onChange, onBlur, value }) => (
+              <TextInput
+                placeholder="name"
+                onChangeText={(value) => onChange(value)}
+                value={value}
+                style={{
+                  flex: 2,
+                  padding: 10,
+                  borderColor: 'black',
+                  borderStyle: 'solid',
+                  borderWidth: 1,
+                }}
+              />
+            )}
+            name="name"
+            rules={{ required: true }}
+            defaultValue=""
           />
         </View>
 
@@ -89,15 +105,24 @@ export const CreateContactScreen = () => {
           }}
         >
           <Text style={{ fontSize: 22 }}>Phone number: </Text>
-          <TextInput
-            placeholder="name"
-            style={{
-              flex: 2,
-              padding: 10,
-              borderColor: 'black',
-              borderStyle: 'solid',
-              borderWidth: 1,
-            }}
+          <Controller
+            control={control}
+            render={({ onChange, onBlur, value }) => (
+              <TextInput
+                placeholder="name"
+                style={{
+                  flex: 2,
+                  padding: 10,
+                  borderColor: 'black',
+                  borderStyle: 'solid',
+                  borderWidth: 1,
+                }}
+                onChangeText={(value) => onChange(value)}
+                value={value}
+              />
+            )}
+            name="phoneNumber"
+            defaultValue=""
           />
         </View>
         <TouchableOpacity
@@ -109,9 +134,7 @@ export const CreateContactScreen = () => {
             justifyContent: 'center',
             backgroundColor: 'blue',
           }}
-          onPress={async () => {
-            await sendPushNotification(expoPushToken);
-          }}
+          onPress={handleSubmit(onSubmit)}
         >
           <Text style={{ color: 'white' }}>Add to contacts</Text>
         </TouchableOpacity>
@@ -120,25 +143,30 @@ export const CreateContactScreen = () => {
   );
 };
 
-async function sendPushNotification(expoPushToken) {
-  console.log(expoPushToken);
+async function sendPushNotification(expoPushToken, { name, phoneNumber }) {
   const message = {
     to: expoPushToken,
     sound: 'default',
-    title: 'Original Title',
-    body: 'And here is the body!',
-    data: { data: 'goes here' },
+    title: 'A friendly reminder 😁',
+    body: `Don't forget to reach out to ${name} today. Their number is ${phoneNumber} 😇`,
   };
 
-  await fetch('https://exp.host/--/api/v2/push/send', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Accept-encoding': 'gzip, deflate',
-      'Content-Type': 'application/json',
+  Notifications.scheduleNotificationAsync({
+    content: message,
+    trigger: {
+      seconds: 10,
     },
-    body: JSON.stringify(message),
   });
+
+  // await fetch('https://exp.host/--/api/v2/push/send', {
+  //   method: 'POST',
+  //   headers: {
+  //     Accept: 'application/json',
+  //     'Accept-encoding': 'gzip, deflate',
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify(message),
+  // });
 }
 
 export default CreateContactScreen;
