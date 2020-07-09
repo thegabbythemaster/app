@@ -5,7 +5,7 @@ export default function ButtonBackground({ text, onPress }) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
-        <Text style={styles.buttonText}>{text}</Text>
+        <Text style={styles.buttonText}>Hey</Text>
       </View>
     </TouchableOpacity>
   );
