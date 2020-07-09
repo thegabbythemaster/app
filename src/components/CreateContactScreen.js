@@ -20,7 +20,12 @@ export const CreateContactScreen = () => {
         Create new contact
       </Text>
       {/* TODO: create components out of these fields */}
-      <View>
+      <View
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
         <View
           style={{
             display: 'flex',
@@ -64,8 +69,17 @@ export const CreateContactScreen = () => {
             }}
           />
         </View>
-        <TouchableOpacity>
-          <Text></Text>
+        <TouchableOpacity
+          style={{
+            borderRadius: 4,
+            width: 200,
+            height: 30,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'blue',
+          }}
+        >
+          <Text style={{ color: 'white' }}>Add to contacts</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
