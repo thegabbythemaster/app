@@ -4,10 +4,9 @@ import { View, TouchableOpacity, SafeAreaView, Text } from 'react-native';
 import { ContactContext } from '../context/ContactContext';
 
 const HomeScreen = ({ navigation }) => {
-  const { contacts } = useContext(ContactContext);
+  const { contacts, deleteContact } = useContext(ContactContext);
 
-  const renderItem = ({ item: { contactInfo } }) => {
-    console.log(contactInfo);
+  const renderItem = ({ item: { contactInfo, id } }) => {
     return (
       <View
         style={{
@@ -31,6 +30,9 @@ const HomeScreen = ({ navigation }) => {
         <Text style={{ alignSelf: 'center', fontSize: 24 }}>
           [Contact Date Here]
         </Text>
+        <TouchableOpacity onPress={() => deleteContact(id)}>
+          <Text>Delete</Text>
+        </TouchableOpacity>
       </View>
     );
   };

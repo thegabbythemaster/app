@@ -4,17 +4,14 @@ export const ContactContext = createContext();
 
 const ContactProvider = ({ children }) => {
   const [contacts, setContacts] = useState([]);
-  const id = useRef(0);
 
   function addContact(contactInfo) {
-    console.log(contactInfo);
-    setContacts([...contacts, { contactInfo, id: String(id.current) }]);
-    id.current++;
+    setContacts([...contacts, { contactInfo, id: String(Math.random()) }]);
     console.log(contacts);
   }
 
   function deleteContact(id) {
-    setContacts(contacts.filter((contact) => contact.id === id));
+    setContacts(contacts.filter((contact) => contact.id !== id));
   }
 
   return (
