@@ -7,7 +7,6 @@ const ContactProvider = ({ children }) => {
 
   function addContact(contactInfo) {
     setContacts([...contacts, { contactInfo, id: String(Math.random()) }]);
-    console.log(contacts);
   }
 
   function deleteContact(id) {
