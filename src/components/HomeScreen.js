@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { View, TouchableOpacity, SafeAreaView, Text } from 'react-native';
+import { ContactContext } from '../context/ContactContext';
 
 const HomeScreen = ({ navigation }) => {
-  const [contacts, setContacts] = useState([]);
-
-  const renderItem = ({ item }) => <View>{item.name}</View>;
+  const { contacts } = useContext(ContactContext);
+  const renderItem = ({ item }) => (
+    <View style={{ backgroundColor: 'red' }}>
+      <Text>{item.name}</Text>
+    </View>
+  );
 
   function renderContent() {
     if (!contacts.length) {
