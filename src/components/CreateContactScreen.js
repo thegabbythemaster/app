@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import * as Notifications from 'expo-notifications';
 import { SafeAreaView, Text, View } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import registerForPushNotificationsAsync from '../utils/registerPushNotifications';
+import { ContactContext } from '../context/ContactContext';
 
 // TODO: clean up this component
 Notifications.setNotificationHandler({
@@ -16,8 +17,10 @@ Notifications.setNotificationHandler({
 
 export const CreateContactScreen = () => {
   const [expoPushToken, setExpoPushToken] = useState('');
+  const [, setNotification] = useState(false);
+  const { addContact } = useContext(ContactContext);
+
   const { control, handleSubmit } = useForm();
-  const [notification, setNotification] = useState(false);
 
   // TODO: clean up with a hook + async/await
   useEffect(() => {
@@ -36,8 +39,8 @@ export const CreateContactScreen = () => {
     };
   }, []);
 
-  async function onSubmit(data) {
-    await sendPushNotification(expoPushToken, data);
+  function onSubmit(data) {
+    addContact(data);
   }
 
   return (

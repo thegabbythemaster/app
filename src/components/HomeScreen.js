@@ -1,60 +1,88 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { View, TouchableOpacity, SafeAreaView, Text } from 'react-native';
+import { ContactContext } from '../context/ContactContext';
 
 const HomeScreen = ({ navigation }) => {
-  const [contacts, setContacts] = useState([]);
+  const { contacts, deleteContact } = useContext(ContactContext);
 
-  const renderItem = ({ item }) => <View>{item.name}</View>;
-
-  function renderContent() {
-    if (!contacts.length) {
-      return (
-        <SafeAreaView
+  const renderItem = ({ item: { contactInfo, id } }) => {
+    return (
+      <View
+        style={{
+          borderColor: 'black',
+          borderWidth: 1,
+          marginVertical: 5,
+          marginHorizontal: 20,
+          display: 'flex',
+        }}
+      >
+        <View
           style={{
-            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            justifyContent: 'center',
           }}
         >
-          <Text>You haven't added any contacts yet!!</Text>
-          <TouchableOpacity
+          <Text style={{ fontSize: 26 }}>{contactInfo.name}</Text>
+          <Text>{contactInfo.phoneNumber}</Text>
+        </View>
+        <Text style={{ alignSelf: 'center', fontSize: 24 }}>
+          [Contact Date Here]
+        </Text>
+        <TouchableOpacity onPress={() => deleteContact(id)}>
+          <Text>Delete</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  if (!contacts.length) {
+    return (
+      <SafeAreaView
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Text>You haven't added any contacts yet!!</Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#01a9b4',
+            width: 150,
+            height: 40,
+            borderRadius: 3,
+            display: 'flex',
+            alignSelf: 'center',
+            justifyContent: 'center',
+            marginTop: 20,
+          }}
+          onPress={() => navigation.navigate('Add Contact')}
+        >
+          <Text
             style={{
-              backgroundColor: '#01a9b4',
-              width: 150,
-              height: 40,
-              borderRadius: 3,
-              display: 'flex',
-              alignSelf: 'center',
-              justifyContent: 'center',
-              marginTop: 20,
+              textAlign: 'center',
+              color: 'white',
             }}
-            onPress={() => navigation.navigate('Add Contact')}
           >
-            <Text
-              style={{
-                textAlign: 'center',
-                color: 'white',
-              }}
-            >
-              Create new Contact
-            </Text>
-          </TouchableOpacity>
-        </SafeAreaView>
-      );
-    } else {
-      return (
-        <SafeAreaView>
-          <FlatList
-            data={contacts}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          />
-        </SafeAreaView>
-      );
-    }
+            Create new Contact
+          </Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  } else {
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <FlatList
+          data={contacts}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          extraData={contacts}
+        />
+      </SafeAreaView>
+    );
   }
-  return renderContent();
 };
 
 export default HomeScreen;
