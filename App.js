@@ -1,36 +1,62 @@
 import 'react-native-gesture-handler';
-import React from 'react';
-import HomeScreen from './src/components/HomeScreen';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CreateContactScreen from './src/components/CreateContactScreen';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import ContactProvider from './src/context/ContactContext';
+import React, {Component} from 'react';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import notificationManager from './NotificationManager';
 
-const Tab = createBottomTabNavigator();
+export default class App extends Component{
+  constructor(props){
+    super(props)
+    this.localNotify = null
+  }
+
+  componentDidMount(){
+    this.localNotify = notificationManager
+    this.localNotify.configure()
+  }
+
+  onPressSendNotification = () =>{
+    this.localNotify.showNotification(
+      1, 
+      "App Notification",
+      "Local Notification",
+      {}, //data
+      {}//options
+    )
+  }
+
+  render(){
+    let {container, button} = styles
+    return(
+      <View style = {container}>
+        <TouchableOpacity style = {button}
+        onPress = {this.onPressSendNotification}>
+
+        <Text> Send notifications</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style = {button}>
+          <Text>Cancel notifications</Text>
+        </TouchableOpacity>
+
+      </View>
+    )
+  }
+}
 
 // TODO: Add a splash screen
-export default function App() {
-  return (
-    <NavigationContainer>
-      <ContactProvider>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
-              if (route.name === 'Home') {
-                iconName = 'ios-home';
-              } else if (route.name === 'Add Contact') {
-                iconName = 'ios-add-circle-outline';
-              }
-              return <Ionicons name={iconName} size={size} color={color} />;
-            },
-          })}
-        >
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Add Contact" component={CreateContactScreen} />
-        </Tab.Navigator>
-      </ContactProvider>
-    </NavigationContainer>
-  );
-}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    width: 200,
+    marginTop: 10
+  }
+})

@@ -6,6 +6,7 @@ import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import registerForPushNotificationsAsync from '../utils/registerPushNotifications';
 import { ContactContext } from '../context/ContactContext';
 
+
 // TODO: clean up this component
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -84,7 +85,7 @@ export const CreateContactScreen = () => {
                 onChangeText={(value) => onChange(value)}
                 value={value}
                 style={{
-                  flex: 2,
+                  flex: 1,
                   padding: 10,
                   borderColor: 'black',
                   borderStyle: 'solid',
