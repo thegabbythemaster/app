@@ -84,8 +84,8 @@ export const CreateContactScreen = () => {
                 onChangeText={(value) => onChange(value)}
                 value={value}
                 style={{
-                  flex: 2,
-                  padding: 10,
+                  flex: 1,
+                  padding: 9,
                   borderColor: 'black',
                   borderStyle: 'solid',
                   borderWidth: 1,
