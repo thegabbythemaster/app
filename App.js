@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, {Component} from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
-import notificationManager from './NotificationManager';
+import notificationManager from './src/components/NotificationManager';
 
 export default class App extends Component{
   constructor(props){

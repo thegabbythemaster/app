@@ -1,5 +1,5 @@
-import PushNotification, { PushNotificationObject } from "react-native-push-notification";
-import PushNotification from "@react-native-community/push-notification-ios";
+import PushNotification from "react-native-push-notification";
+//import PushNotification from "@react-native-community/push-notification-ios";
 import {Platform, PushNotificationIOS} from 'react-native';
 
 class NotificationManager{
