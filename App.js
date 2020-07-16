@@ -16,14 +16,14 @@ export default function App() {
       <ContactProvider>
         <Tab.Navigator
           screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
+            tabBarIcon: ({ focused, color, size,}) => {
               let iconName;
               if (route.name === 'Home') {
                 iconName = 'ios-home';
               } else if (route.name === 'Add Contact') {
                 iconName = 'ios-add-circle-outline';
               }
-              return <Ionicons name={iconName} size={size} color={color} />;
+              return <Ionicons name={iconName} size={size} color={color}/>;
             },
           })}
         >
