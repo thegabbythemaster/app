@@ -5,7 +5,6 @@ import { ContactContext } from '../context/ContactContext';
 
 const HomeScreen = ({ navigation }) => {
   const { contacts, deleteContact } = useContext(ContactContext);
-
   const renderItem = ({ item: { contactInfo, id } }) => {
     return (
       <View
@@ -15,17 +14,18 @@ const HomeScreen = ({ navigation }) => {
           marginVertical: 5,
           marginHorizontal: 20,
           display: 'flex',
-        }}
-      >
+          backgroundColor: '#b0f4f7',
+        }}>
         <View
           style={{
-            flexDirection: 'row',
+            flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}
         >
           <Text style={{ fontSize: 26 }}>{contactInfo.name}</Text>
           <Text>{contactInfo.phoneNumber}</Text>
+          <Text>{contactInfo.email}</Text>
         </View>
         <Text style={{ alignSelf: 'center', fontSize: 24 }}>
           [Contact Date Here]
@@ -41,18 +41,23 @@ const HomeScreen = ({ navigation }) => {
     return (
       <SafeAreaView
         style={{
+          backgroundColor: '#ecfcac',
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        <Text>You haven't added any contacts yet!!</Text>
+        <Text
+        style = {{
+          fontSize: 20,
+          alignItems: 'center',
+        }}>You haven't added any contacts yet</Text>
         <TouchableOpacity
           style={{
             backgroundColor: '#01a9b4',
-            width: 150,
+            width: 200,
             height: 40,
-            borderRadius: 3,
+            borderRadius: 10,
             display: 'flex',
             alignSelf: 'center',
             justifyContent: 'center',
@@ -73,7 +78,7 @@ const HomeScreen = ({ navigation }) => {
     );
   } else {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#ecfcac', }}>
         <FlatList
           data={contacts}
           renderItem={renderItem}
