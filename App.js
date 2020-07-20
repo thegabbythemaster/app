@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CreateContactScreen from './src/components/CreateContactScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ContactProvider from './src/context/ContactContext';
+import manifest from './src/components/manifest';
 
 const Tab = createBottomTabNavigator();
 
