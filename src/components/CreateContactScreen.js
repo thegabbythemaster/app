@@ -15,6 +15,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
+
 export const CreateContactScreen = () => {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [, setNotification] = useState(false);
@@ -160,6 +161,7 @@ export const CreateContactScreen = () => {
           />
 
         </View>
+
           <TouchableOpacity
             style={{
               borderRadius: 10,
@@ -189,7 +191,8 @@ async function sendPushNotification(expoPushToken, { name, phoneNumber }) {
   Notifications.scheduleNotificationAsync({
     content: message,
     trigger: {
-      seconds: 10,
+      seconds: 5,
+      repeats: true,
     },
   });
 }
