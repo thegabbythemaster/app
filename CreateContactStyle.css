@@ -1,0 +1,42 @@
+body{
+    background-color: #ecfcac;
+    text-align: center;
+}
+
+h1{
+    font-size: 40px;
+    font-family: Arial;
+    align-items: center;
+    text-align: center;
+    padding-top: 80px;
+    font-weight: 100;
+}
+form{
+    padding: 20px;
+    margin: 20px 0;
+    border: 3px solid #ecfcac;
+}
+label{
+    font-weight: 100;
+    text-align: center;
+    font: normal 25px Arial;
+}
+
+input[type = "text"], input[type = "telephone"]{
+    position: relative;
+    margin-bottom: 20px;
+    padding: 10px 10px 10px 50px;
+    border: 0;
+    border-radius: 4px;
+}
+
+.submit{
+    position: relative;
+    margin-bottom: 20px;
+    padding: 5px 25px 5px 25px;
+    border: 0;
+    border-radius: 8px;
+    color: white;
+    background-color: #6bbfff;
+    font-size: 20px;
+}
