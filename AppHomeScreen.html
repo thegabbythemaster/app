@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+  <script src="./main.js" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="./AppStyle.css" />
   <link rel="stylesheet" type="text/css" href="./nav.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -7,15 +8,46 @@
   <title>nTouch</title>
 </head>
 <body>
-    <div id = "NoContacts">
-    <h2>You havent added any contacts yet!</h2>
-    <div class = "create">
-      <a href = "./CreateContact.html">
-        <button>Create new Contact</button>
-      </a>
-    </div>
+
+ <!--<script type="text/javascript">
+    // if(contacts===undefined || contacts.length===0){ 
+      //document.getElementById("NoContacts").style.display="none";
+      //else{
+        //document.getElementbyID("yes").style.display = "none";
+    //} 
+      
+  </script>!-->
+
+<div id = "NoContacts">
+  <h2>You haven't added any contacts yet!</h2>
+  <div class = "create">
+    <a href = "./CreateContact.html">
+      <button>Create new Contact</button>
+    </a>
   </div>
-  
+</div>
+
+<div id = "ContactsPresent">
+  <h2>You have contacts!</h2>
+</div>
+
+<script type="text/javascript">
+//savedcontacts variable is equal to the array retrieved from local storage
+  let savedcontacts= JSON.parse(localStorage.getItem("mycontacts"));
+  //if contact list is empty, hide the "contactpresent" div and show "nocontacts" div
+  if(savedcontacts===undefined || contactlist.length===0){  
+    document.getElementById("yes").style.display="none";
+    document.getElementById("NoContacts").style.display="block"
+    window.alert(contactlist.length); //for testing
+  }
+  //if contact list is not empty, hide the "no contacts" div and show "contactpresent" div
+  else{
+    document.getElementById("NoContacts").style.display="none";
+    document.getElementById("yes").style.display="block";
+    window.alert(contactlist.length); //for testing
+  }
+  </script>
+
   <nav class = "nav">
     <a href = "./AppHomeScreen.html" class = "nav__link">
       <i class="material-icons nav__icon">home</i>
@@ -26,5 +58,4 @@
       <span class = "nav__text">Add Contact</span>
     </a>
   </nav>
-  <script src="./main.js" type="text/javascript"></script>
 </body>

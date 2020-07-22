@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+  <!--<script src="./main.js" type="text/javascript"></script>!-->
   <link rel="stylesheet" type="text/css" href="./CreateContactStyle.css" />
   <link rel="stylesheet" type="text/css" href="./nav.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -8,17 +9,19 @@
       <link href = "css/font-awesome.css" rel="stylesheet">
   <title>nTouch</title>
 </head>
+
 <body>
     <h1>Create New Contact</h1>
     <div class = "Info">
         <form>
             <label id = "name">Name: </label>
-            <input type = "text" id = "CName" ><br>
+            <input type = "text" id = "CName" name="CName" ><br>
             <label id = "phone">Phone number: </label>
-            <input type = "telephone" id = "CPhone"><br>
+            <input type = "telephone" id = "CPhone" name="CPhone"><br>
+            <!--<input type = "submit" >!-->
             <div class = "add-item">
-                <button class = "submit" onclick="AddInfo()">Add to contacts</button>
-                <!--<input id = "CInfo" type = "submit" value = "Add to contacts" onclick = "AddInfo()">-->
+                <button class = "submit" onclick="add_contact()">Add to contacts</button>
+                <!--<input id = "CInfo" type = "submit" value = "Add to contacts" onclick = "AddInfo()">!-->
             </div>
         </form>
     </div>
