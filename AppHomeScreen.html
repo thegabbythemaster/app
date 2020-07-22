@@ -3,19 +3,33 @@
   <link rel="stylesheet" type="text/css" href="./AppStyle.css" />
   <link rel="stylesheet" type="text/css" href="./nav.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
   <title>nTouch</title>
 </head>
 <body>
-    <div id = "NoContacts">
-    <h2>You havent added any contacts yet!</h2>
-    <div class = "create">
-      <a href = "./CreateContact.html">
-        <button>Create new Contact</button>
-      </a>
-    </div>
+  <script id = "ifHelper" type="text/x-handlebars-template">
+    {{#if no}}
+      <h2>You havent added any contacts yet!</h2>
+      <div class = "create">
+        <a href = "./CreateContact.html">
+          <button>Create new Contact</button>
+        </a>
+      </div>  
+  </div>  
+  {{/if}}
+  {{#if list}}
+  <div id = "Contacts">
+    <h1>Contacts</h1>
+    <ul id = "list-of-contacts">
+      {{#each ContactList}}
+      <li>{{this}}</li>
+      {{/each}}
+    </ul>
   </div>
-  
+  {{/if}}
+</script>
+
   <nav class = "nav">
     <a href = "./AppHomeScreen.html" class = "nav__link">
       <i class="material-icons nav__icon">home</i>
@@ -26,5 +40,5 @@
       <span class = "nav__text">Add Contact</span>
     </a>
   </nav>
-  <script src="./main.js" type="text/javascript"></script>
+  <script href = "./main.js" type = "text/javascript"></script>
 </body>

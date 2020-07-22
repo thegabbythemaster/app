@@ -1,22 +1,23 @@
-let contacts = [];
+const source = document.getElementById('ifHelper').innerHTML;
+const template = Handlebars.compile(source);
 
-let empty = document.getElementById('');
-function submit() {
-    let ContactName = document.getElementById('input');
-    let ContactPhoneNumber = document.getElementById('input');
-    
-    let person = {
-        name: ContactName,
-        phone: ContactPhoneNumber,
-    };
-    contacts.push(person);
-};
 
-if(contacts.length === 0 || contacts === undefined){
- console.log(empty);
+let ContactList = [];
+let ContactName = document.getElementById('CName');
+let ContactNumber = document.getElementById('CPhone');
+
+let NoContacts = {
+    no: true,
+    output: "You dont have any contacts yet!",
 }
-else{
-    console.log(contacts);
+
+function AddInfo(){
+  let person = {
+    list: true,
+    name: ContactName,
+    number: ContactNumber,
+  };
+  ContactList.push(person);
 }
 
 
