@@ -82,8 +82,8 @@ export const CreateContactScreen = () => {
             render={({ onChange, onBlur, value }) => (
               <TextInput
                 placeholder="name"
-                onChangeText={(value) => onChange(value)}
-                value={value}
+                onChangeText={(text) => this.setState({input: text})}
+                value={this.state.input}
                 style={{
                   flex: 1,
                   padding: 9,
@@ -114,6 +114,8 @@ export const CreateContactScreen = () => {
             render={({ onChange, onBlur, value }) => (
               <TextInput
                 placeholder="number"
+                onChangeText={(number) => this.setState({number})}
+                value={this.state.number}
                 style={{
                   flex: 2,
                   padding: 10,
@@ -144,6 +146,8 @@ export const CreateContactScreen = () => {
             render={({ onChange, onBlur, value }) => (
               <TextInput
                 placeholder="Email"
+                onChangeText={(email) => this.setState({email})}
+                value={this.state.email}
                 style={{
                   flex: 2,
                   padding: 10,
@@ -177,13 +181,10 @@ export const CreateContactScreen = () => {
     </SafeAreaView>
   );
 };
-
-async function sendPushNotification(expoPushToken, { name, phoneNumber }) {
   const message = {
-    to: expoPushToken,
     sound: 'default',
     title: 'A friendly reminder 😁',
-    body: `Don't forget to reach out to ${name} today. Their number is ${phoneNumber} 😇`,
+    body: `Don't forget to reach out to ${this.state.input} today. Their number is ${phoneNumber} 😇`,
   };
 
   Notifications.scheduleNotificationAsync({
@@ -192,6 +193,6 @@ async function sendPushNotification(expoPushToken, { name, phoneNumber }) {
       seconds: 10,
     },
   });
-}
+
 
 export default CreateContactScreen;
