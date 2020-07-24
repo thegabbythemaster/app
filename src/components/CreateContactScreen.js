@@ -1,19 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import * as Notifications from 'expo-notifications';
 import { SafeAreaView, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import registerForPushNotificationsAsync from '../utils/registerPushNotifications';
 import { ContactContext } from '../context/ContactContext';
 
 // TODO: clean up this component
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-  }),
-});
 
 export const CreateContactScreen = () => {
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -23,22 +15,6 @@ export const CreateContactScreen = () => {
   const { control, handleSubmit } = useForm();
 
   // TODO: clean up with a hook + async/await
-  useEffect(() => {
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token)
-    );
-    Notifications.addNotificationReceivedListener((notification) => {
-      setNotification(notification);
-    });
-    Notifications.addNotificationResponseReceivedListener((response) => {
-      console.log(response);
-    });
-
-    return () => {
-      Notifications.removeAllNotificationListeners();
-    };
-  }, []);
-
   function onSubmit(data) {
     addContact(data);
   }
@@ -177,21 +153,5 @@ export const CreateContactScreen = () => {
     </SafeAreaView>
   );
 };
-
-async function sendPushNotification(expoPushToken, { name, phoneNumber }) {
-  const message = {
-    to: expoPushToken,
-    sound: 'default',
-    title: 'A friendly reminder 😁',
-    body: `Don't forget to reach out to ${name} today. Their number is ${phoneNumber} 😇`,
-  };
-
-  Notifications.scheduleNotificationAsync({
-    content: message,
-    trigger: {
-      seconds: 10,
-    },
-  });
-}
 
 export default CreateContactScreen;
