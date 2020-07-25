@@ -11,6 +11,8 @@ import * as Permissions from 'expo-permissions';
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, Button, Platform } from 'react-native';
 
+//ERROR STARTING ON LINE 88
+
 const Tab = createBottomTabNavigator();
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -47,6 +49,16 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      <View>
+        <View style={{paddingTop: 50, alignItems: 'center', justifyContent: 'center' }}>
+        </View>
+        <Button
+          title="Press to Send Notification"
+          onPress={async () => {
+            await sendPushNotification(expoPushToken);
+          }}
+        />
+      </View>
       <ContactProvider>
         <Tab.Navigator
           screenOptions={({ route }) => ({
@@ -65,27 +77,6 @@ export default function App() {
           <Tab.Screen name="Add Contact" component={CreateContactScreen} />
         </Tab.Navigator>
       </ContactProvider>
-
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'space-around',
-        }}>
-        <Text>Your expo push token: {expoPushToken}</Text>
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Title: {notification && notification.request.content.title} </Text>
-          <Text>Body: {notification && notification.request.content.body}</Text>
-          <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
-        </View>
-        <Button
-          title="Press to Send Notification"
-          onPress={async () => {
-            await sendPushNotification(expoPushToken);
-          }}
-        />
-      </View>
-
     </NavigationContainer>
   );
 }
@@ -95,9 +86,10 @@ async function sendPushNotification(expoPushToken) {
   const message = {
     to: expoPushToken,
     sound: 'default',
-    title: 'Original Title',
-    body: 'And here is the body!',
-    data: { data: 'goes here' },
+    title: 'A Friendly Reminder!',
+    body: `Dont forget to call ${name}, her phone number is ${phoneNumber}`,
+    //Here is my problem with the code getting the variable name and phonenumber of the conatact that is being
+    //inputted from CreateContactScreen.js, file is getting error because it doesnt know what name and phoneNumber is  
   };
 
   await fetch('https://exp.host/--/api/v2/push/send', {

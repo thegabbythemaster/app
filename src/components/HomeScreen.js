@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { View, TouchableOpacity, SafeAreaView, Text } from 'react-native';
 import { ContactContext } from '../context/ContactContext';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
 
 const HomeScreen = ({ navigation }) => {
   const { contacts, deleteContact } = useContext(ContactContext);
