@@ -81,11 +81,11 @@ export const CreateContactScreen = () => {
                 onChangeText={(value) => onChange(value)}
                 value={value}
                 style={{
-                  flex: 2,
-                  padding: 10,
-                  borderColor: 'black',
-                  borderStyle: 'solid',
-                  borderWidth: 1,
+                  flex: 1,
+                  padding: 9,
+                  borderBottomColor: 'black',
+                  borderBottomWidth: 1,
+                  fontSize: 20,
                 }}
               />
             )}
@@ -113,9 +113,9 @@ export const CreateContactScreen = () => {
                 style={{
                   flex: 2,
                   padding: 10,
-                  borderColor: 'black',
-                  borderStyle: 'solid',
-                  borderWidth: 1,
+                  borderBottomColor: 'black',
+                  borderBottomWidth: 1,
+                  fontSize: 20,
                 }}
                 onChangeText={(value) => onChange(value)}
                 value={value}
@@ -125,20 +125,41 @@ export const CreateContactScreen = () => {
             defaultValue=""
           />
         </View>
-        <TouchableOpacity
-          style={{
-            borderRadius: 4,
-            width: 200,
-            height: 30,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'blue',
-          }}
-          onPress={handleSubmit(onSubmit)}
-        >
-          <Text style={{ color: 'white' }}>Add to contacts</Text>
-        </TouchableOpacity>
+
+        <Text style={{ fontSize: 22 }}>Email: </Text>
+        <Controller
+          control={control}
+          render={({ onChange, onBlur, value }) => (
+            <TextInput
+              placeholder="Email"
+              style={{
+                flex: 2,
+                padding: 10,
+                borderBottomColor: 'black',
+                borderBottomWidth: 1,
+                fontSize: 20,
+              }}
+              onChangeText={(value) => onChange(value)}
+              value={value}
+            />
+          )}
+          name="email"
+          defaultValue=""
+        />
       </View>
+      <TouchableOpacity
+        style={{
+          borderRadius: 10,
+          width: 200,
+          height: 40,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#6bbfff',
+        }}
+        onPress={handleSubmit(onSubmit)}
+      >
+        <Text style={{ color: 'white', fontSize: 18 }}>Add to contacts</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
