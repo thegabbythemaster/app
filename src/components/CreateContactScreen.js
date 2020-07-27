@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import * as Notifications from 'expo-notifications';
-import { SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, Text, View, Platform, Button } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import registerForPushNotificationsAsync from '../utils/registerPushNotifications';
 import { ContactContext } from '../context/ContactContext';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 // TODO: clean up this component
 Notifications.setNotificationHandler({
@@ -16,9 +17,32 @@ Notifications.setNotificationHandler({
 });
 
 export const CreateContactScreen = () => {
-  const [expoPushToken, setExpoPushToken] = useState('');
-  const [, setNotification] = useState(false);
   const { addContact } = useContext(ContactContext);
+
+  const [, setExpoPushToken] = useState('');
+  const [, setNotification] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || data;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatePicker = () => {
+    showMode('date');
+  };
+
+  const showTimePicker = () => {
+    showMode('time');
+  };
 
   const { control, handleSubmit } = useForm();
 
@@ -128,20 +152,38 @@ export const CreateContactScreen = () => {
             defaultValue=""
           />
         </View>
+        <View>
+          <Button onPress={showDatePicker} title="Show date picker!" />
+        </View>
+
+        <View>
+          <Button onPress={showTimePicker} title="Show time picker" />
+        </View>
+
         <TouchableOpacity
           style={{
-            borderRadius: 4,
+            borderRadius: 10,
             width: 200,
-            height: 30,
+            height: 40,
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: 'blue',
+            backgroundColor: '#6bbfff',
           }}
           onPress={handleSubmit(onSubmit)}
         >
-          <Text style={{ color: 'white' }}>Add to contacts</Text>
+          <Text style={{ color: 'white', fontSize: 18 }}>Add to contacts</Text>
         </TouchableOpacity>
       </View>
+      {show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={mode}
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+      )}
     </SafeAreaView>
   );
 };
