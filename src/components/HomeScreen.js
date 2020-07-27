@@ -6,7 +6,8 @@ import { ContactContext } from '../context/ContactContext';
 const HomeScreen = ({ navigation }) => {
   const { contacts, deleteContact } = useContext(ContactContext);
 
-  const renderItem = ({ item: { contactInfo, id } }) => {
+  const renderItem = ({ item: { contactInfo, id, date } }) => {
+    console.log(contactInfo, id, date);
     return (
       <View
         style={{
@@ -28,7 +29,7 @@ const HomeScreen = ({ navigation }) => {
           <Text>{contactInfo.phoneNumber}</Text>
         </View>
         <Text style={{ alignSelf: 'center', fontSize: 24 }}>
-          [Contact Date Here]
+          {date.toDateString()}
         </Text>
         <TouchableOpacity onPress={() => deleteContact(id)}>
           <Text>Delete</Text>

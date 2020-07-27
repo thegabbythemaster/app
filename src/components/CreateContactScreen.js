@@ -27,6 +27,7 @@ export const CreateContactScreen = () => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || data;
+    console.log(selectedDate);
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
   };
@@ -64,7 +65,7 @@ export const CreateContactScreen = () => {
   }, []);
 
   function onSubmit(data) {
-    addContact(data);
+    addContact(data, date);
   }
 
   return (
@@ -152,6 +153,7 @@ export const CreateContactScreen = () => {
             defaultValue=""
           />
         </View>
+        <Text>Schedule Contact</Text>
         <View>
           <Button onPress={showDatePicker} title="Show date picker!" />
         </View>
