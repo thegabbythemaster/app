@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { SafeAreaView, Text, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { SafeAreaView, Text, View, Navigator, Button,TouchableOpacity } from 'react-native';
+import { TextInput, FlatList} from 'react-native-gesture-handler';
 import registerForPushNotificationsAsync from '../utils/registerPushNotifications';
 import { ContactContext } from '../context/ContactContext';
+import 'react-native-gesture-handler';
 
 // TODO: clean up this component
 
-export const CreateContactScreen = () => {
+export const CreateContactScreen = ({navigation}) => {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [, setNotification] = useState(false);
   const { addContact } = useContext(ContactContext);
@@ -16,22 +17,25 @@ export const CreateContactScreen = () => {
 
   // TODO: clean up with a hook + async/await
   function onSubmit(data) {
-    addContact(data);
+    addContact(data);  
   }
 
+  
   return (
     <SafeAreaView
       style={{
         display: 'flex',
         flex: 1,
-        backgroundColor: '#ecfcac',
+        backgroundColor: '#fcf7e1',
       }}
     >
       <Text
         style={{
           textAlign: 'center',
           fontSize: 30,
-          marginTop: 20,
+          color: '#799ead',
+          backgroundColor: '#716992',
+  
         }}
       >
         Create new contact
@@ -41,6 +45,7 @@ export const CreateContactScreen = () => {
         style={{
           display: 'flex',
           alignItems: 'center',
+          backgroundColor: '#716992'
         }}
       >
         <View
@@ -52,7 +57,7 @@ export const CreateContactScreen = () => {
             margin: 30,
           }}
         >
-          <Text style={{ flex: 0.5, fontSize: 22 }}>Name: </Text>
+          <Text style={{ flex: 0.5, fontSize: 22, color: '#799ead' }}>Name: </Text>
           <Controller
             control={control}
             render={({ onChange, onBlur, value }) => (
@@ -65,7 +70,8 @@ export const CreateContactScreen = () => {
                   padding: 9,
                   borderBottomColor: 'black',
                   borderBottomWidth: 1,
-                  fontSize: 20
+                  fontSize: 20,
+                  display: 'flex'
                 }}
               />
             )}
@@ -84,21 +90,23 @@ export const CreateContactScreen = () => {
             margin: 30,
           }}
         >
-          <Text style={{ fontSize: 22 }}>Phone number: </Text>
+          <Text style={{ fontSize: 22, color: '#799ead' }}>Phone number: </Text>
           <Controller
             control={control}
             render={({ onChange, onBlur, value }) => (
               <TextInput
                 placeholder="number"
                 style={{
-                  flex: 2,
+                  flex: 1,
                   padding: 10,
                   borderBottomColor: 'black',
                   borderBottomWidth: 1,
-                  fontSize: 20
+                  fontSize: 20,
+                  display: 'flex',
                 }}
                 onChangeText={(value) => onChange(value)}
                 value={value}
+                maxLength = {10}
               />
             )}
             name="phoneNumber"
@@ -114,7 +122,7 @@ export const CreateContactScreen = () => {
             alignItems: 'center',
             margin: 30,
           }}>
-        <Text style={{ fontSize: 22 }}>Email: </Text>
+        <Text style={{ fontSize: 22, color: '#799ead', textAlign: 'left' }}>Email: </Text>
           <Controller
             control={control}
             render={({ onChange, onBlur, value }) => (
@@ -125,7 +133,8 @@ export const CreateContactScreen = () => {
                   padding: 10,
                   borderBottomColor: 'black',
                   borderBottomWidth: 1,
-                  fontSize: 20
+                  fontSize: 20,
+                  display: 'flex'
                 }}
                 onChangeText={(value) => onChange(value)}
                 value={value}
@@ -139,16 +148,31 @@ export const CreateContactScreen = () => {
           <TouchableOpacity
             style={{
               borderRadius: 10,
-              width: 200,
-              height: 40,
+              width: 2000,
+              height: 100,
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: '#6bbfff',
+              backgroundColor: '#abc7b9',
+              display: 'flex'
             }}
-            onPress={handleSubmit(onSubmit)}
-          >
-            <Text style={{ color: 'white' , fontSize: 18}}>Add to contacts</Text>
+            onPress = {handleSubmit(onSubmit)}
+            >  
+          <Text style = {{color: '#716992', fontSize: 25}}>Add to Contacts</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              borderRadius: 10,
+              width: 2000,
+              height: 100,
+              alignItems: 'center',
+              justifyContent: 'center',
+              display: 'flex',
+              backgroundColor: '#799ead',
+            }}
+          onPress={() => navigation.navigate('Home')}>
+            <Text style = {{color: '#716992', fontSize: 25}}>Back to List</Text>
+          </TouchableOpacity>
+          
       </View>
     </SafeAreaView>
   );

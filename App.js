@@ -9,7 +9,7 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform } from 'react-native';
+import { Text, View, Button, Platform, Image } from 'react-native';
 
 //ERROR STARTING ON LINE 88
 
@@ -50,9 +50,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <View>
-        <View style={{paddingTop: 50, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{paddingTop: 50, alignItems: 'center', justifyContent: 'center'}}>
         </View>
         <Button
+          color = '#716992'
           title="Press to Send Notification"
           onPress={async () => {
             await sendPushNotification(expoPushToken);
@@ -69,9 +70,15 @@ export default function App() {
               } else if (route.name === 'Add Contact') {
                 iconName = 'ios-add-circle-outline';
               }
-              return <Ionicons name={iconName} size={size} color={color}/>;
+              return <Ionicons name={iconName} size={size} color={'#716992'}/>;
             },
           })}
+          tabBarOptions={{
+            color: 'black',
+            activeTintColor: '#fcf7e1',
+            inactiveTintColor: 'gray',
+            activeBackgroundColor: '#abc7b9'
+          }}
         >
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Add Contact" component={CreateContactScreen} />
@@ -87,7 +94,7 @@ async function sendPushNotification(expoPushToken) {
     to: expoPushToken,
     sound: 'default',
     title: 'A Friendly Reminder!',
-    body: `Dont forget to call ${name}, her phone number is ${phoneNumber}`,
+    body: `Dont forget to blank , her phone number is blank`,
     //Here is my problem with the code getting the variable name and phonenumber of the conatact that is being
     //inputted from CreateContactScreen.js, file is getting error because it doesnt know what name and phoneNumber is  
   };
