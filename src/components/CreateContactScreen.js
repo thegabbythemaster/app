@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { SafeAreaView, Text, View, Navigator, Button,TouchableOpacity } from 'react-native';
+import { SafeAreaView, Text, View, Navigator, Button,TouchableOpacity, Keyboard } from 'react-native';
 import { TextInput, FlatList} from 'react-native-gesture-handler';
 import registerForPushNotificationsAsync from '../utils/registerPushNotifications';
 import { ContactContext } from '../context/ContactContext';
@@ -13,15 +13,16 @@ export const CreateContactScreen = ({navigation}) => {
   const [, setNotification] = useState(false);
   const { addContact } = useContext(ContactContext);
 
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit, reset, getValues } = useForm();
 
   // TODO: clean up with a hook + async/await
   function onSubmit(data) {
     addContact(data);  
+    Keyboard.dismiss();
   }
-
   
   return (
+    <form onSubmit={handleSubmit(onSubmit)}>
     <SafeAreaView
       style={{
         display: 'flex',
@@ -34,18 +35,18 @@ export const CreateContactScreen = ({navigation}) => {
           textAlign: 'center',
           fontSize: 30,
           color: '#799ead',
-          backgroundColor: '#716992',
+          backgroundColor: '#fcf7e1',
   
         }}
       >
         Create new contact
-      </Text>
+      </Text>{/*
       {/* TODO: create components out of these fields */}
       <View
         style={{
           display: 'flex',
           alignItems: 'center',
-          backgroundColor: '#716992'
+          backgroundColor: '#fcf7e1'
         }}
       >
         <View
@@ -146,23 +147,32 @@ export const CreateContactScreen = ({navigation}) => {
 
         </View>
           <TouchableOpacity
+            type = "button"
             style={{
               borderRadius: 10,
-              width: 2000,
+              width: '80%',
               height: 100,
               alignItems: 'center',
               justifyContent: 'center',
               backgroundColor: '#abc7b9',
               display: 'flex'
             }}
-            onPress = {handleSubmit(onSubmit)}
+            onPress = {() => {
+              onSubmit(getValues());
+              reset({
+                name: "",
+                phoneNumber: "",
+                email: ""
+              });
+              navigation.navigate('Home');
+            }}
             >  
           <Text style = {{color: '#716992', fontSize: 25}}>Add to Contacts</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
               borderRadius: 10,
-              width: 2000,
+              width: '80%',
               height: 100,
               alignItems: 'center',
               justifyContent: 'center',
@@ -175,6 +185,7 @@ export const CreateContactScreen = ({navigation}) => {
           
       </View>
     </SafeAreaView>
+    </form>
   );
 };
 
