@@ -207,7 +207,6 @@ async function sendPushNotification(
   const d1 = moment(new Date());
   const d2 = moment(date);
   const seconds = d2.diff(d1, 'seconds');
-  console.log({ seconds });
   Notifications.scheduleNotificationAsync({
     content: message,
     trigger: {
