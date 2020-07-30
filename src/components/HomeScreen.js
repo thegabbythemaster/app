@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { View, TouchableOpacity, SafeAreaView, Text } from 'react-native';
+import { ContactContext } from '../context/ContactContext';
+import moment from 'moment';
 
 const HomeScreen = ({ navigation }) => {
   const { contacts, deleteContact } = useContext(ContactContext);
 
-  const renderItem = ({ item: { contactInfo, id } }) => {
+  const renderItem = ({ item: { contactInfo, id, date } }) => {
     return (
       <View
         style={{
@@ -14,22 +16,20 @@ const HomeScreen = ({ navigation }) => {
           marginVertical: 5,
           marginHorizontal: 20,
           display: 'flex',
-          backgroundColor: '#b0f4f7',
         }}
       >
         <View
           style={{
-            flexDirection: 'column',
+            flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}
         >
-          <Text style={{ fontSize: 26 }}>{contactInfo.name}</Text>
-          <Text>{contactInfo.phoneNumber}</Text>
-          <Text>{contactInfo.email}</Text>
+          <Text style={{ fontSize: 26 }}>Name: {contactInfo.name}</Text>
+          <Text>Number: {contactInfo.phoneNumber}</Text>
         </View>
-        <Text style={{ alignSelf: 'center', fontSize: 24 }}>
-          [Contact Date Here]
+        <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+          Contact date: {moment().format('LLLL')}
         </Text>
         <TouchableOpacity onPress={() => deleteContact(id)}>
           <Text>Delete</Text>
@@ -42,24 +42,13 @@ const HomeScreen = ({ navigation }) => {
     return (
       <SafeAreaView
         style={{
-          backgroundColor: '#ecfcac',
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        <Text
-          style={{
-            fontSize: 20,
-            alignItems: 'center',
-          }}
-        >
-          You haven't added any contacts yet
-        </Text>
-
         <Text>You haven't added any contacts yet!!</Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Add Contact')}
           style={{
             backgroundColor: '#01a9b4',
             width: 150,
@@ -70,14 +59,22 @@ const HomeScreen = ({ navigation }) => {
             justifyContent: 'center',
             marginTop: 20,
           }}
+          onPress={() => navigation.navigate('Add Contact')}
         >
-          <Text>Create new Contact</Text>
+          <Text
+            style={{
+              textAlign: 'center',
+              color: 'white',
+            }}
+          >
+            Create new Contact
+          </Text>
         </TouchableOpacity>
       </SafeAreaView>
     );
   } else {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#ecfcac' }}>
+      <SafeAreaView style={{ flex: 1 }}>
         <FlatList
           data={contacts}
           renderItem={renderItem}
