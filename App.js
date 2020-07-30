@@ -1,15 +1,11 @@
 import 'react-native-gesture-handler';
+import React from 'react';
 import HomeScreen from './src/components/HomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CreateContactScreen from './src/components/CreateContactScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ContactProvider from './src/context/ContactContext';
-import Constants from 'expo-constants';
-import * as Notifications from 'expo-notifications';
-import * as Permissions from 'expo-permissions';
-import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform, Image } from 'react-native';
 
 
 const Tab = createBottomTabNavigator();
@@ -18,21 +14,10 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <View>
-        <View style={{paddingTop: 50, alignItems: 'center', justifyContent: 'center'}}>
-        </View>
-        <Button
-          color = '#716992'
-          title="Press to Send Notification"
-          onPress={async () => {
-            await sendPushNotification(expoPushToken);
-          }}
-        />
-      </View>
       <ContactProvider>
         <Tab.Navigator
           screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
+            tabBarIcon: ({ size }) => {
               let iconName;
               if (route.name === 'Home') {
                 iconName = 'ios-home';
