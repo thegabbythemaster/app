@@ -6,6 +6,7 @@ import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import registerForPushNotificationsAsync from '../utils/registerPushNotifications';
 import { ContactContext } from '../context/ContactContext';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
 
 // TODO: clean up this component
 Notifications.setNotificationHandler({
@@ -18,9 +19,11 @@ Notifications.setNotificationHandler({
 
 export const CreateContactScreen = () => {
   const { addContact } = useContext(ContactContext);
+  const { control, handleSubmit } = useForm();
+  const [expoToken, setExpoPushToken] = useState('');
 
-  const [, setExpoPushToken] = useState('');
   const [, setNotification] = useState(false);
+
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
@@ -45,8 +48,6 @@ export const CreateContactScreen = () => {
     showMode('time');
   };
 
-  const { control, handleSubmit } = useForm();
-
   // TODO: clean up with a hook + async/await
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) =>
@@ -66,6 +67,8 @@ export const CreateContactScreen = () => {
 
   function onSubmit(data) {
     addContact(data, date);
+
+    sendPushNotification(expoToken, data, date);
   }
 
   return (
@@ -190,18 +193,25 @@ export const CreateContactScreen = () => {
   );
 };
 
-async function sendPushNotification(expoPushToken, { name, phoneNumber }) {
+async function sendPushNotification(
+  expoPushToken,
+  { name, phoneNumber },
+  date
+) {
   const message = {
     to: expoPushToken,
     sound: 'default',
     title: 'A friendly reminder 😁',
     body: `Don't forget to reach out to ${name} today. Their number is ${phoneNumber} 😇`,
   };
-
+  const d1 = moment(new Date());
+  const d2 = moment(date);
+  const seconds = d2.diff(d1, 'seconds');
+  console.log({ seconds });
   Notifications.scheduleNotificationAsync({
     content: message,
     trigger: {
-      seconds: 10,
+      seconds,
     },
   });
 }
