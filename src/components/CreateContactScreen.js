@@ -66,7 +66,7 @@ export const CreateContactScreen = () => {
   }, []);
 
   function onSubmit(data) {
-    addContact(data, date);
+    addContact(data, moment(date));
 
     sendPushNotification(expoToken, data, date);
   }
@@ -207,6 +207,7 @@ async function sendPushNotification(
   const d1 = moment(new Date());
   const d2 = moment(date);
   const seconds = d2.diff(d1, 'seconds');
+
   Notifications.scheduleNotificationAsync({
     content: message,
     trigger: {

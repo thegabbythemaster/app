@@ -28,7 +28,7 @@ const HomeScreen = ({ navigation }) => {
           <Text>Number: {contactInfo.phoneNumber}</Text>
         </View>
         <Text style={{ alignSelf: 'center', fontSize: 14 }}>
-          Contact date: {moment().format('LLLL')}
+          Contact date: {moment(date).format('LLLL')}
         </Text>
         <TouchableOpacity onPress={() => deleteContact(id)}>
           <Text>Delete</Text>
