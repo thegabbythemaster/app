@@ -68,8 +68,8 @@ const HomeScreen = ({ navigation }) => {
             opacity: '.3',
             marginLeft: 2,
             marginRight: 2,
-            marginTop: 2,
-            marginBottom: 4
+            marginTop: 0,
+            marginBottom: 0
             }}
         />
 
@@ -80,12 +80,16 @@ const HomeScreen = ({ navigation }) => {
           }}>Reminder set for: xx/xx/xxxx</Text>
           <TouchableOpacity style ={{
             position: 'absolute',
+            top: 0,
+            right: 10,
+            margin: 5,
             bottom: 3,
             right: 5,
             backgroundColor: '#716992',
             borderRadius: '5',
-            height: 15,
-            alignSelf: 'flex-end'
+            height: 22,
+            alignSelf: 'flex-end',
+            textAlign: 'center'
           }} onPress={() => deleteContact(id)}>
           <Text style = {{
             color: '#fcf7e1',
