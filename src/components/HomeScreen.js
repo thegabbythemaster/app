@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { View, TouchableOpacity, SafeAreaView, Text, Button, Image } from 'react-native';
 import { ContactContext } from '../context/ContactContext';
+import StyleSheet from './Style.js';
 
 
 const HomeScreen = ({ navigation }) => {
@@ -25,16 +26,15 @@ const HomeScreen = ({ navigation }) => {
           style={{
             flexDirection: 'column',
             justifyContent: 'space-between',
-            alignItems: 'center',
+            position: 'relative'
+            //alignItems: 'left',
           }}
         >
-          <Text style={{ fontSize: 26, color: '#fcf7e1' }}>{contactInfo.name}</Text>
-          <Text style = {{color: '#fcf7e1'}}>{contactInfo.phoneNumber}</Text>
-          <Text style  = {{color: '#fcf7e1'}}>{contactInfo.email}</Text>
+          <Text style={Style.contactNameText}>{contactInfo.name}</Text>
+          <Text id="contact-phone">{contactInfo.phoneNumber}</Text>
+          <Text id="contact-email">{contactInfo.email}</Text>
+          <Text id="contact-date">[Contact Date Here]</Text>
         </View>
-        <Text style={{ alignSelf: 'center', fontSize: 24 , color: '#fcf7e1'}}>
-          [Contact Date Here]
-        </Text>
         <TouchableOpacity onPress={() => deleteContact(id)}>
           <Text style = {{color: '#fcf7e1'}}>Delete</Text>
         </TouchableOpacity>

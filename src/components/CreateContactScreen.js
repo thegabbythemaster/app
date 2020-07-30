@@ -150,7 +150,7 @@ export const CreateContactScreen = ({navigation}) => {
             type = "button"
             style={{
               borderRadius: 10,
-              width: '80%',
+              width: '100%',
               height: 100,
               alignItems: 'center',
               justifyContent: 'center',
@@ -169,20 +169,6 @@ export const CreateContactScreen = ({navigation}) => {
             >  
           <Text style = {{color: '#716992', fontSize: 25}}>Add to Contacts</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              borderRadius: 10,
-              width: '80%',
-              height: 100,
-              alignItems: 'center',
-              justifyContent: 'center',
-              display: 'flex',
-              backgroundColor: '#799ead',
-            }}
-          onPress={() => navigation.navigate('Home')}>
-            <Text style = {{color: '#716992', fontSize: 25}}>Back to List</Text>
-          </TouchableOpacity>
-          
       </View>
     </SafeAreaView>
     </form>
