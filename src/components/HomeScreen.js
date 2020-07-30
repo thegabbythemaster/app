@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { View, TouchableOpacity, SafeAreaView, Text } from 'react-native';
 import { ContactContext } from '../context/ContactContext';
+import moment from 'moment';
 
 const HomeScreen = ({ navigation }) => {
   const { contacts, deleteContact } = useContext(ContactContext);
 
   const renderItem = ({ item: { contactInfo, id, date } }) => {
-    console.log(date.toLocaleTimeString());
     return (
       <View
         style={{
@@ -29,7 +29,7 @@ const HomeScreen = ({ navigation }) => {
           <Text>Number: {contactInfo.phoneNumber}</Text>
         </View>
         <Text style={{ alignSelf: 'center', fontSize: 14 }}>
-          Contact date: {date.toLocaleString()}, {date.toLocaleTimeString()}
+          Contact date: {moment().format('LLLL')}
         </Text>
         <TouchableOpacity onPress={() => deleteContact(id)}>
           <Text>Delete</Text>
