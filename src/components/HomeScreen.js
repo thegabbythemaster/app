@@ -2,8 +2,6 @@ import React, { useContext } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import { View, TouchableOpacity, SafeAreaView, Text, Button, Image } from 'react-native';
 import { ContactContext } from '../context/ContactContext';
-import StyleSheet from './Style.js';
-
 
 const HomeScreen = ({ navigation }) => {
   const { contacts, deleteContact } = useContext(ContactContext);
@@ -14,13 +12,22 @@ const HomeScreen = ({ navigation }) => {
           borderWidth: 0,
           marginVertical: 5,
           marginHorizontal: 20,
-          width: '80%',
+          width: '90%',
           maxWidth: 500,
           alignSelf: 'center',
           display: 'flex',
-          backgroundColor: '#abc7b9',
+          backgroundColor: 'white',
           borderRadius: 7,
           padding: 5,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 3,
+          },
+          shadowOpacity: 0.18,
+          shadowRadius: 2.62,
+          elevation: 4,
+          justifyContent: 'space-around'
         }}>
         <View
           style={{
@@ -30,14 +37,60 @@ const HomeScreen = ({ navigation }) => {
             //alignItems: 'left',
           }}
         >
-          <Text style={Style.contactNameText}>{contactInfo.name}</Text>
-          <Text id="contact-phone">{contactInfo.phoneNumber}</Text>
-          <Text id="contact-email">{contactInfo.email}</Text>
-          <Text id="contact-date">[Contact Date Here]</Text>
+
+          <Text style={{
+            fontSize: 26,
+            color: '#799ead',
+            textAlign: 'left',
+            fontWeight: '600',
+            textShadowColor: '#716992', 
+            textShadowOffset: { width: 0.5, height: 0.5 },
+            textShadowRadius: 0.5, 
+            }}>{contactInfo.name}</Text>
+          <Text style={{
+            fontSize: 22,
+            color: '#799ead',
+            textAlign:'left',
+            fontWeight: '300'
+          }}>{contactInfo.phoneNumber}</Text>
+          <Text style={{
+            fontSize: 20,
+            color: '#799ead',
+            textAlign: 'left',
+            fontWeight: '300'
+          }}>{contactInfo.email}</Text>
         </View>
-        <TouchableOpacity onPress={() => deleteContact(id)}>
-          <Text style = {{color: '#fcf7e1'}}>Delete</Text>
-        </TouchableOpacity>
+        <View
+          style={{
+            borderBottomColor: '#799ead',
+            borderBottomWidth: 1,
+            height: '10%',
+            opacity: '.3',
+            marginLeft: 2,
+            marginRight: 2,
+            marginTop: 2,
+            marginBottom: 4
+            }}
+        />
+
+        <Text style={{ 
+          //alignSelf: 'flex-end', 
+          fontSize: 20 ,
+          color: '#799ead'
+          }}>Reminder set for: xx/xx/xxxx</Text>
+          <TouchableOpacity style ={{
+            position: 'absolute',
+            bottom: 3,
+            right: 5,
+            backgroundColor: '#716992',
+            borderRadius: '5',
+            height: 15,
+            alignSelf: 'flex-end'
+          }} onPress={() => deleteContact(id)}>
+          <Text style = {{
+            color: '#fcf7e1',
+          }}> Delete </Text>
+          </TouchableOpacity>
       </View>
     );
   };
@@ -56,7 +109,9 @@ const HomeScreen = ({ navigation }) => {
     <View>
         <Text style = {{
           fontSize: 30,
-          color: '#716992'
+          color: '#716992',
+          textAlign: 'center',
+          fontWeight: '700'
         }}>Welcome to nTouch!</Text>
         <Image style={{ width: 300, height: 300}}
         source = {{uri: 'https://i.pinimg.com/originals/ab/53/c3/ab53c3258caa5c3c691b4de46cb5ad88.gif',}}/>
@@ -67,11 +122,12 @@ const HomeScreen = ({ navigation }) => {
           alignItems: 'center',
           textAlign: 'center',
           color: '#799ead'
-        }}>You haven't added any contacts yet</Text>
+        }}>You haven't added any contacts yet.</Text>
         <TouchableOpacity
           style={{
             backgroundColor: '#abc7b9',
-            width: 2000,
+            width: '80%',
+            maxWidth: 500,
             height: 100,
             borderRadius: 10,
             display: 'flex',

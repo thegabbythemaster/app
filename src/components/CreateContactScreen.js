@@ -22,7 +22,6 @@ export const CreateContactScreen = ({navigation}) => {
   }
   
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
     <SafeAreaView
       style={{
         display: 'flex',
@@ -39,6 +38,7 @@ export const CreateContactScreen = ({navigation}) => {
   
         }}
       >
+      
         Create new contact
       </Text>{/*
       {/* TODO: create components out of these fields */}
@@ -80,6 +80,7 @@ export const CreateContactScreen = ({navigation}) => {
             rules={{ required: true }}
             defaultValue=""
           />
+          
         </View>
 
         <View
@@ -150,15 +151,17 @@ export const CreateContactScreen = ({navigation}) => {
             type = "button"
             style={{
               borderRadius: 10,
-              width: '100%',
-              height: 100,
+              width: '60%',
+              maxWidth: 300,
+              height: 60,
               alignItems: 'center',
               justifyContent: 'center',
               backgroundColor: '#abc7b9',
               display: 'flex'
             }}
             onPress = {() => {
-              onSubmit(getValues());
+              handleSubmit(onSubmit(getValues()));
+              //onSubmit(getValues());
               reset({
                 name: "",
                 phoneNumber: "",
@@ -171,7 +174,6 @@ export const CreateContactScreen = ({navigation}) => {
           </TouchableOpacity>
       </View>
     </SafeAreaView>
-    </form>
   );
 };
 
